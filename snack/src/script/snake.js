@@ -2,7 +2,7 @@
 * @Author: x
 * @Date:   2017-11-15 18:58:42
 * @Last Modified by:   x
-* @Last Modified time: 2017-11-15 22:52:19
+* @Last Modified time: 2017-11-16 09:23:28
 */
 var world = document.getElementById("world");
 var snack = document.getElementById("snack");
@@ -10,19 +10,25 @@ var food = document.getElementById("food");
 var score = document.getElementById("score");
 var timer;
 var speed = 300;
-var checkEat = setInterval(eat,speed); //check eating
+var checkEvent = setInterval(check,1); //check eating
 var track = []; //tracker
 var num = 0; //length of arr
 var preDir = 0;
 
-function eat(){
+function check(){
     checkEating(snack,food);
     function checkEating(snake, food) {
     	//distance from object's left to world left
         var snakeL = snake.offsetLeft;
         var snakeT = snake.offsetTop;
+        var snakeR = snake.offsetLeft + snake.offsetWidth;
+        var snakeB = snake.offsetTop + snake.offsetHeight;
         var foodL = food.offsetLeft;
         var foodT = food.offsetTop;
+
+        if ((snakeL === 0 && preDir == 37) || (snakeT === 0 && preDir == 38) || (snakeR === 480 && preDir == 39) ||(snakeB === 480 && preDir == 40)) {
+        	alert("collision");
+        }
         
         //check eating, snake and food are overlapping
         if (snakeL == foodL && snakeT == foodT) {
@@ -44,7 +50,6 @@ function eat(){
             place += 1;
             bodyNum[i].style.left = track[num - place][0] + 'px';
             bodyNum[i].style.top = track[num - place][1] + 'px';    
-
         }
     }
 }
@@ -130,14 +135,15 @@ document.onkeydown = function(e) {
 //generate a food in an valid position
 function generate() {
 	var bodyNum = document.getElementsByClassName("body");
-	var ranL = parseInt(Math.random() * 20) * 24;
-	var ranT = parseInt(Math.random() * 20) * 24;
+	var ranL = (parseInt(Math.random() * 18) + 1) * 24;
+	var ranT = (parseInt(Math.random() * 18) + 1) * 24;
     for(var i = 0 ; i < bodyNum.length ; i++){
         var bodyL = bodyNum[i].style.left
         var bodyR = bodyNum[i].style.top
+        //overlapping, regenerate
         if (ranL == bodyL && ranR == bodyR) {
-        	ranL = parseInt(Math.random() * 20) * 24;
-        	ranT = parseInt(Math.random() * 20) * 24;
+        	ranL = (parseInt(Math.random() * 18) + 1) * 24;
+        	ranT = (parseInt(Math.random() * 18) + 1) * 24;
         	i = 0;
         }   
     }
