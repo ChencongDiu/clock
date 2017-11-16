@@ -2,7 +2,7 @@
 * @Author: x
 * @Date:   2017-11-15 18:58:42
 * @Last Modified by:   x
-* @Last Modified time: 2017-11-16 10:36:59
+* @Last Modified time: 2017-11-16 16:46:42
 */
 var world = document.getElementById("world");
 var snack = document.getElementById("snack");
@@ -10,12 +10,13 @@ var food = document.getElementById("food");
 var score = document.getElementById("score");
 var timer;
 var speed = 300;
-var checkEvent = setInterval(check,5); //check eating
+var checkEvent = setInterval(check,10); //check eating
 var track = []; //tracker
 var num = 0; //length of arr
 var preDir = 0;
 
 function check(){
+	//check eating, collision
     checkEating(snack,food);
     function checkEating(snake, food) {
     	//distance from object's left to world left
@@ -32,8 +33,26 @@ function check(){
         	if(confirm('Collision!')){
     			window.location.reload();  
 			}
-        }
-        
+    	}
+
+		//check self-biting
+    	var bodyNum = document.getElementsByClassName("body");
+    	//if bodylength <= 3, snake can never bit itself
+    	if (bodyNum.length > 3) {
+    		for(var i = 3 ; i < bodyNum.length ; i++){
+		        var bodyL = bodyNum[i].offsetLeft;
+		        var bodyT = bodyNum[i].offsetTop;
+
+		        console.log(snakeL, snakeT, bodyL, bodyT);
+		        if (snakeL == bodyL && snakeT == bodyT) {
+		        	clearInterval(checkEvent);
+		        	if(confirm('OUCH!')){
+		    			window.location.reload();  
+					}
+			    }   
+		    }
+    	}
+
         //check eating, snake and food are overlapping
         if (snakeL == foodL && snakeT == foodT) {
         	//create a body
