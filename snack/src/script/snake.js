@@ -2,20 +2,21 @@
 * @Author: x
 * @Date:   2017-11-15 18:58:42
 * @Last Modified by:   x
-* @Last Modified time: 2017-11-15 22:17:30
+* @Last Modified time: 2017-11-15 22:52:19
 */
-var jsBody = document.getElementById("world");
-var jsSnack = document.getElementById("snack");
-var jsFood = document.getElementById("food");
-var jsScore = document.getElementById("score");
+var world = document.getElementById("world");
+var snack = document.getElementById("snack");
+var food = document.getElementById("food");
+var score = document.getElementById("score");
 var timer;
 var speed = 300;
 var checkEat = setInterval(eat,speed); //check eating
-var srr = []; //tracker
+var track = []; //tracker
 var num = 0; //length of arr
+var preDir = 0;
 
 function eat(){
-    checkEating(jsSnack,jsFood);
+    checkEating(snack,food);
     function checkEating(snake, food) {
     	//distance from object's left to world left
         var snakeL = snake.offsetLeft;
@@ -28,8 +29,8 @@ function eat(){
         	//create a body
             newBody = document.createElement("div");
             newBody.setAttribute("class","body");
-            jsBody.appendChild(newBody);
-            Pos();
+            world.appendChild(newBody);
+            generate();
             speed *= 0.95
             setInterval(follow,speed);
         }
@@ -37,12 +38,13 @@ function eat(){
 
     function follow(){
         var bodyNum = document.getElementsByClassName("body");
-        jsScore.innerHTML = bodyNum.length;
-        var place = 0 ;
-        for(var i = 0 ; i<bodyNum.length ; i++){
+        score.innerHTML = bodyNum.length;
+        var place = 0;
+        for(var i = 0 ; i < bodyNum.length ; i++){
             place += 1;
-            bodyNum[i].style.left=srr[num-place][0] + 'px';
-            bodyNum[i].style.top=srr[num-place][1] + 'px';    
+            bodyNum[i].style.left = track[num - place][0] + 'px';
+            bodyNum[i].style.top = track[num - place][1] + 'px';    
+
         }
     }
 }
@@ -52,52 +54,72 @@ document.onkeydown = function(e) {
 	switch(evt.keyCode) {
 		//left 37
 		case 37:
+			//check turnback
+			if (preDir == 39) {
+				break;
+			}
 			clearInterval(timer);
             timer = window.setInterval(runLeft,speed)
             function runLeft(){
-                if (jsSnack.offsetLeft >= 24) {
-                    jsSnack.style.left = jsSnack.offsetLeft - 24 + "px";
-                    jsSnack.style.top = jsSnack.offsetTop + "px";
-                    srr.push([jsSnack.offsetLeft, jsSnack.offsetTop]);
+                if (snack.offsetLeft >= 24) {
+                    snack.style.left = snack.offsetLeft - 24 + "px";
+                    snack.style.top = snack.offsetTop + "px";
+                    track.push([snack.offsetLeft, snack.offsetTop]);
+                    preDir = 37;
                     num++;
-                }                        
+                }           
             }
         break;
 		//up 38
 		case 38:
+			//check turnback
+			if (preDir == 40) {
+				break;
+			}
 			clearInterval(timer);
             timer=window.setInterval(runTop,speed)
             function runTop(){
-                if (jsSnack.offsetLeft >= 24) {
-                    jsSnack.style.top = jsSnack.offsetTop - 24 + "px";
-                    jsSnack.style.left = jsSnack.offsetLeft + "px";
-                    srr.push([jsSnack.offsetLeft, jsSnack.offsetTop]);
+                if (snack.offsetLeft >= 24) {
+                    snack.style.top = snack.offsetTop - 24 + "px";
+                    snack.style.left = snack.offsetLeft + "px";
+                    track.push([snack.offsetLeft, snack.offsetTop]);
+                    preDir = 38;
                     num++;
-                }                        
+                }                      
             }
         break;
 		//right 39
 		case 39:
+			//check turnback
+			if (preDir == 37) {
+				break;
+			}
 			clearInterval(timer);
             timer=window.setInterval(runRight,speed);
             function runRight(){
-                if (jsSnack.offsetLeft + jsSnack.offsetWidth <= 456) {
-                    jsSnack.style.left = jsSnack.offsetLeft + 24 + "px";
-                    jsSnack.style.top = jsSnack.offsetTop + "px";
-                    srr.push([jsSnack.offsetLeft, jsSnack.offsetTop]);
+                if (snack.offsetLeft + snack.offsetWidth <= 456) {
+                    snack.style.left = snack.offsetLeft + 24 + "px";
+                    snack.style.top = snack.offsetTop + "px";
+                    track.push([snack.offsetLeft, snack.offsetTop]);
+                    preDir = 39;
                     num++;
                 }                        
             }                    
         break;
 		//down 40
 		case 40:
+			//check turnback
+			if (preDir == 38) {
+				break;
+			}
 			clearInterval(timer);
             timer=window.setInterval(runBottom,speed);            
             function runBottom(){
-                if (jsSnack.offsetTop + jsSnack.offsetHeight <= 456) {
-                    jsSnack.style.top = jsSnack.offsetTop + 24 + "px";
-                    jsSnack.style.left = jsSnack.offsetLeft + "px";
-                    srr.push([jsSnack.offsetLeft, jsSnack.offsetTop]);
+                if (snack.offsetTop + snack.offsetHeight <= 456) {
+                    snack.style.top = snack.offsetTop + 24 + "px";
+                    snack.style.left = snack.offsetLeft + "px";
+                    track.push([snack.offsetLeft, snack.offsetTop]);
+                    preDir = 40;
                     num++;
                 }                        
             }                    
@@ -105,12 +127,21 @@ document.onkeydown = function(e) {
 	}
 }
 
-//generate food randomly
-function Pos(){
-	//random int [0, 19]
-	var ranL = parseInt(Math.random() * 20);
-	var ranT = parseInt(Math.random() * 20);
-    jsFood.style.left = ranL * 24 + "px";
-    jsFood.style.top = ranT * 24 + "px";
+//generate a food in an valid position
+function generate() {
+	var bodyNum = document.getElementsByClassName("body");
+	var ranL = parseInt(Math.random() * 20) * 24;
+	var ranT = parseInt(Math.random() * 20) * 24;
+    for(var i = 0 ; i < bodyNum.length ; i++){
+        var bodyL = bodyNum[i].style.left
+        var bodyR = bodyNum[i].style.top
+        if (ranL == bodyL && ranR == bodyR) {
+        	ranL = parseInt(Math.random() * 20) * 24;
+        	ranT = parseInt(Math.random() * 20) * 24;
+        	i = 0;
+        }   
+    }
+    food.style.left = ranL + "px";
+    food.style.top = ranT + "px";
 }
-Pos();
+generate();
