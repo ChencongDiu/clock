@@ -2,7 +2,7 @@
 * @Author: x
 * @Date:   2017-11-15 18:58:42
 * @Last Modified by:   x
-* @Last Modified time: 2017-11-16 16:46:42
+* @Last Modified time: 2017-11-16 16:48:36
 */
 var world = document.getElementById("world");
 var snack = document.getElementById("snack");
@@ -42,8 +42,6 @@ function check(){
     		for(var i = 3 ; i < bodyNum.length ; i++){
 		        var bodyL = bodyNum[i].offsetLeft;
 		        var bodyT = bodyNum[i].offsetTop;
-
-		        console.log(snakeL, snakeT, bodyL, bodyT);
 		        if (snakeL == bodyL && snakeT == bodyT) {
 		        	clearInterval(checkEvent);
 		        	if(confirm('OUCH!')){
