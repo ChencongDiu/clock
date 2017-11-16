@@ -2,7 +2,7 @@
 * @Author: x
 * @Date:   2017-11-15 18:58:42
 * @Last Modified by:   x
-* @Last Modified time: 2017-11-16 09:23:28
+* @Last Modified time: 2017-11-16 10:36:59
 */
 var world = document.getElementById("world");
 var snack = document.getElementById("snack");
@@ -10,7 +10,7 @@ var food = document.getElementById("food");
 var score = document.getElementById("score");
 var timer;
 var speed = 300;
-var checkEvent = setInterval(check,1); //check eating
+var checkEvent = setInterval(check,5); //check eating
 var track = []; //tracker
 var num = 0; //length of arr
 var preDir = 0;
@@ -26,8 +26,12 @@ function check(){
         var foodL = food.offsetLeft;
         var foodT = food.offsetTop;
 
+        //check collision
         if ((snakeL === 0 && preDir == 37) || (snakeT === 0 && preDir == 38) || (snakeR === 480 && preDir == 39) ||(snakeB === 480 && preDir == 40)) {
-        	alert("collision");
+        	clearInterval(checkEvent);
+        	if(confirm('Collision!')){
+    			window.location.reload();  
+			}
         }
         
         //check eating, snake and food are overlapping
