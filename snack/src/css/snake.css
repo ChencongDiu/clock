@@ -2,7 +2,7 @@
 * @Author: x
 * @Date:   2017-11-15 18:32:36
 * @Last Modified by:   x
-* @Last Modified time: 2017-11-16 23:01:23
+* @Last Modified time: 2017-11-16 23:31:57
 */
 
 html,body {
@@ -89,10 +89,13 @@ html,body {
     font-weight: bold;
     color: #ff6374;
 }
-#bestscore{
-    font-size: 25px;
-    font-weight: bold;
-    color: #ff6374;
+#info{
+    height: 60px;
+    width: 120px;
+    float: right;
+    bottom: 12px;
+    font-size: 15px;
+    position: absolute;
 }
 .menu div{
     font-size: 20px;

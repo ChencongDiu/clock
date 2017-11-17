@@ -2,14 +2,16 @@
 * @Author: x
 * @Date:   2017-11-15 18:58:42
 * @Last Modified by:   x
-* @Last Modified time: 2017-11-16 23:04:46
+* @Last Modified time: 2017-11-16 23:23:49
 */
 var mycanvas = document.getElementById("mycanvas");
 var world = document.getElementById("world");
 var snack = document.getElementById("snack");
 var food = document.getElementById("food");
 var score = document.getElementById("score");
-var audio = document.getElementById("bgm-audio");
+var bgmaudio = document.getElementById("bgm-audio");
+var eataudio = document.getElementById("eat-audio");
+var gameoveraudio = document.getElementById("gameover-audio");
 var music = document.getElementById("music");
 var isplaying = true;
 var timer;
@@ -23,7 +25,7 @@ var preDir = 0;
 var ctx = mycanvas.getContext('2d');
 function drawChessBoard(){
     for(var i = 1; i < 18; i++){
-        ctx.strokeStyle="#dcdcdc";
+        ctx.strokeStyle = "#dcdcdc";
         ctx.moveTo(i * 24, 0);
         ctx.lineTo(i * 24, 432);
         ctx.stroke();
@@ -38,11 +40,11 @@ drawChessBoard();
 music.onclick = function() {
 	if (isplaying) {
 		music.style.backgroundImage = "url(./image/mute.png)";
-		audio.pause();
+		bgmaudio.pause();
 		isplaying = false;
 	} else {
 		music.style.backgroundImage = "url(./image/music.png)";
-		audio.play();
+		bgmaudio.play();
 		isplaying = true;
 	}
 }
@@ -62,6 +64,10 @@ function check(){
 
         //check collision
         if ((snakeL === 0 && preDir == 37) || (snakeT === 0 && preDir == 38) || (snakeR === 480 && preDir == 39) ||(snakeB === 480 && preDir == 40)) {
+        	if (isplaying) {
+        		bgmaudio.pause();
+        		gameoveraudio.play();
+        	}
         	clearInterval(checkEvent);
         	if(confirm('Collision!')){
     			window.location.reload();  
@@ -76,6 +82,10 @@ function check(){
 		        var bodyL = bodyNum[i].offsetLeft;
 		        var bodyT = bodyNum[i].offsetTop;
 		        if (snakeL == bodyL && snakeT == bodyT) {
+		        	if (isplaying) {
+		        		bgmaudio.pause();
+		        		gameoveraudio.play();
+		        	}
 		        	clearInterval(checkEvent);
 		        	if(confirm('OUCH!')){
 		    			window.location.reload();  
@@ -93,6 +103,9 @@ function check(){
             generate();
             speed *= 0.95
             setInterval(follow,speed);
+            if (isplaying) {
+        		eataudio.play();
+        	}
         }
     }
 
