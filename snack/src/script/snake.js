@@ -2,7 +2,7 @@
 * @Author: x
 * @Date:   2017-11-15 18:58:42
 * @Last Modified by:   x
-* @Last Modified time: 2017-11-16 23:23:49
+* @Last Modified time: 2017-11-17 10:19:12
 */
 var mycanvas = document.getElementById("mycanvas");
 var world = document.getElementById("world");
@@ -66,12 +66,12 @@ function check(){
         if ((snakeL === 0 && preDir == 37) || (snakeT === 0 && preDir == 38) || (snakeR === 480 && preDir == 39) ||(snakeB === 480 && preDir == 40)) {
         	if (isplaying) {
         		bgmaudio.pause();
+        		eataudio.pause();
         		gameoveraudio.play();
         	}
         	clearInterval(checkEvent);
-        	if(confirm('Collision!')){
-    			window.location.reload();  
-			}
+        	alert('Collision! Press Yes to restart.')
+    		window.location.reload();  
     	}
 
 		//check self-biting
@@ -84,12 +84,12 @@ function check(){
 		        if (snakeL == bodyL && snakeT == bodyT) {
 		        	if (isplaying) {
 		        		bgmaudio.pause();
+        				eataudio.pause();
 		        		gameoveraudio.play();
 		        	}
 		        	clearInterval(checkEvent);
-		        	if(confirm('OUCH!')){
-		    			window.location.reload();  
-					}
+		        	alert('OUCH! Press Yes to restart')
+		    		window.location.reload();
 			    }   
 		    }
     	}
