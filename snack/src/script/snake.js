@@ -2,12 +2,16 @@
 * @Author: x
 * @Date:   2017-11-15 18:58:42
 * @Last Modified by:   x
-* @Last Modified time: 2017-11-16 16:48:36
+* @Last Modified time: 2017-11-16 23:04:46
 */
+var mycanvas = document.getElementById("mycanvas");
 var world = document.getElementById("world");
 var snack = document.getElementById("snack");
 var food = document.getElementById("food");
 var score = document.getElementById("score");
+var audio = document.getElementById("bgm-audio");
+var music = document.getElementById("music");
+var isplaying = true;
 var timer;
 var speed = 300;
 var checkEvent = setInterval(check,10); //check eating
@@ -15,6 +19,35 @@ var track = []; //tracker
 var num = 0; //length of arr
 var preDir = 0;
 
+//draw world using canvas
+var ctx = mycanvas.getContext('2d');
+function drawChessBoard(){
+    for(var i = 1; i < 18; i++){
+        ctx.strokeStyle="#dcdcdc";
+        ctx.moveTo(i * 24, 0);
+        ctx.lineTo(i * 24, 432);
+        ctx.stroke();
+        ctx.moveTo(0, i * 24);
+        ctx.lineTo(432, i * 24);
+        ctx.stroke();
+    }
+}
+drawChessBoard();
+
+//music control
+music.onclick = function() {
+	if (isplaying) {
+		music.style.backgroundImage = "url(./image/mute.png)";
+		audio.pause();
+		isplaying = false;
+	} else {
+		music.style.backgroundImage = "url(./image/music.png)";
+		audio.play();
+		isplaying = true;
+	}
+}
+
+//check events using pure js
 function check(){
 	//check eating, collision
     checkEating(snack,food);

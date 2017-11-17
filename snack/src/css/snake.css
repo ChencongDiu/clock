@@ -2,7 +2,7 @@
 * @Author: x
 * @Date:   2017-11-15 18:32:36
 * @Last Modified by:   x
-* @Last Modified time: 2017-11-16 10:25:00
+* @Last Modified time: 2017-11-16 23:01:23
 */
 
 html,body {
@@ -38,13 +38,6 @@ html,body {
     float: left;
     position: relative;
 }
-.menu{
-    height: 480px;
-    width: 120px;
-    float: right;
-    text-align: center;
-    background-color: #a9a9a9;
-}
 #snack{
     height: 24px;
     width: 24px;
@@ -66,13 +59,40 @@ html,body {
     border-radius: 50%;
     background-color: #3cb371;
     position: absolute;
-    left: 0px;
-    top:0px;
+}
+.menu{
+    height: 480px;
+    width: 120px;
+    float: right;
+    text-align: center;
+    background-color: #a9a9a9;
+}
+#music{
+    height: 24px;
+    width: 24px;
+    float: right;
+    background: url(../image/music.png);
+    top: 12px;
+    right: 12px;
+    cursor: pointer;
+    position: relative;
+}
+#scoreboard{
+    height: 60px;
+    width: 120px;
+    float: right;
+    top: 24px;
+    position: relative;
 }
 #score{
     font-size: 25px;
     font-weight: bold;
-    color: #ff6347;
+    color: #ff6374;
+}
+#bestscore{
+    font-size: 25px;
+    font-weight: bold;
+    color: #ff6374;
 }
 .menu div{
     font-size: 20px;

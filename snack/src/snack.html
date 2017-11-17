@@ -6,18 +6,33 @@
 	<link href="css/snake.css" rel="stylesheet">
 </head>
 <body>
-	<audio autoplay loop>
+	<audio id="bgm-audio" autoplay loop>
 		<source src="music/BGM.mp3" type="audio/ogg">
+		your brower does not support audio
+	</audio>
+	<audio id="eat-audio">
+		<source src="music/eat.wav" type="audio/ogg">
+	</audio>
+	<audio id="gameover-audio">
+		<source src="music/gameover.wav" type="audio/ogg">
 	</audio>
 	<div class="window">
 		<div id="world">
-			<div id="wall"></div>
+			<div id="wall">
+				<canvas id="mycanvas" width="432px" height="432px"></canvas>
+			</div>
 			<div id="snack"></div>
 			<div id="food"></div>
 		</div>
 		<div class="menu">
-			<div>
-				Score<span id="score"></span>
+			<div id="music"></div>
+			<div id="scoreboard">
+				Score<span id="score">0</span>
+				<br>
+				Best<span id="bestscore">0</span>
+			</div>
+			<div id="info">
+
 			</div>
 		</div>
 	</div>
