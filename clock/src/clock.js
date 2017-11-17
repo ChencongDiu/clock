@@ -2,7 +2,7 @@
 * @Author: x
 * @Date:   2017-11-15 15:30:25
 * @Last Modified by:   x
-* @Last Modified time: 2017-11-15 16:58:25
+* @Last Modified time: 2017-11-17 10:38:07
 */
 var dom = document.getElementById('clock');
 var ctx = dom.getContext('2d');
