@@ -2,7 +2,7 @@
 * @Author: x
 * @Date:   2017-11-19 19:18:11
 * @Last Modified by:   x
-* @Last Modified time: 2017-11-19 22:40:19
+* @Last Modified time: 2017-11-20 00:17:24
 */
 var WINDOW_WIDTH  = 720;
 var WINDOW_HEIGHT = 360;
@@ -12,7 +12,7 @@ var MARGIN_LEFT = 30;
 var START = 0;
 var END   = 2 * Math.PI;
 
-const endTime = new Date(2017, 10, 19, 23, 59);
+const endTime = new Date(2017, 10, 20, 23, 59);
 var curShowTimeSeconds = 0;
 
 var balls = [];
@@ -24,6 +24,13 @@ const colors =
 			 "#778899"]
 
 window.onload = function() {
+	WINDOW_WIDTH = document.body.clientWidth;
+	WINDOW_HEIGHT = document.body.clientHeight;
+
+	MARGIN_LEFT = Math.round(WINDOW_WIDTH / 10);
+	RADIUS = Math.round(WINDOW_WIDTH * 4 / 5 / 108) - 1;
+	MARGIN_TOP = Math.round(WINDOW_HEIGHT / 5);
+
 	var canvas = document.getElementById('canvas');
 	var ctx = canvas.getContext('2d');
 
@@ -89,16 +96,30 @@ function updateBalls() {
 		balls[i].y += balls[i].vy;
 		balls[i].vy += balls[i].g;
 
-		if (balls[i].x >= (WINDOW_WIDTH - RADIUS)) {
+		/*if (balls[i].x >= (WINDOW_WIDTH - RADIUS)) {
 			balls[i].x = (WINDOW_WIDTH - RADIUS);
 			balls[i].vx = -balls[i].vx * 0.6;
-		}
+		}*/
 		if (balls[i].y >= (WINDOW_HEIGHT - RADIUS)) {
 			balls[i].y = (WINDOW_HEIGHT - RADIUS);
 			balls[i].vy = -balls[i].vy * 0.6;
 		}
 
 	}
+
+	var cnt = 0;
+	var minspeed = 1000;
+	for (var i = 0; i < balls.length; i++) {
+		//keep the ball
+		if ((balls[i].x + RADIUS > 0 && balls[i].x - RADIUS < WINDOW_WIDTH) && 
+			!(balls[i].vy < 0.01 && balls[i].vx == 0) && !(balls[i].y == (WINDOW_HEIGHT - RADIUS) && Math.abs(balls[i].vy) < 6)) {
+			balls[cnt++] = balls[i];
+		}
+	}
+	while (balls.length > cnt) {
+		balls.pop();
+	}
+	console.log(balls.length);
 };
 
 function addBalls(x, y, num) {
