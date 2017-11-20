@@ -2,7 +2,7 @@
 * @Author: x
 * @Date:   2017-11-19 19:18:11
 * @Last Modified by:   x
-* @Last Modified time: 2017-11-20 00:21:30
+* @Last Modified time: 2017-11-20 11:23:34
 */
 var WINDOW_WIDTH  = 720;
 var WINDOW_HEIGHT = 360;
@@ -12,7 +12,7 @@ var MARGIN_LEFT = 30;
 var START = 0;
 var END   = 2 * Math.PI;
 
-const endTime = new Date(2017, 10, 20, 23, 59);
+const endTime = new Date();
 var curShowTimeSeconds = 0;
 
 var balls = [];
@@ -48,7 +48,7 @@ window.onload = function() {
 
 function getCurShowTimeSeconds() {
 	var curTime = new Date();
-	var ret = endTime.getTime() - curTime.getTime();
+	var ret = endTime.getTime() - curTime.getTime() + 3600 * 1000;
 	ret = Math.round(ret / 1000);
 
 	return ret >= 0? ret: 0;
@@ -120,7 +120,6 @@ function updateBalls() {
 	while (balls.length > cnt) {
 		balls.pop();
 	}
-	console.log(balls.length);
 };
 
 function addBalls(x, y, num) {
