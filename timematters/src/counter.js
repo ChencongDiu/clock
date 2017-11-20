@@ -2,11 +2,11 @@
 * @Author: x
 * @Date:   2017-11-19 19:18:11
 * @Last Modified by:   x
-* @Last Modified time: 2017-11-19 21:33:55
+* @Last Modified time: 2017-11-19 22:31:57
 */
-var WINDOW_WIDTH  = 1024;
-var WINDOW_HEIGHT = 768;
-var RADIUS = 8;
+var WINDOW_WIDTH  = 720;
+var WINDOW_HEIGHT = 360;
+var RADIUS = 5;
 var MARGIN_TOP  = 60;
 var MARGIN_LEFT = 30;
 var START = 0;
@@ -14,6 +14,14 @@ var END   = 2 * Math.PI;
 
 const endTime = new Date(2017, 10, 19, 23, 59);
 var curShowTimeSeconds = 0;
+
+var balls = [];
+const colors = 
+			["#33b5e5", "#0099cc", "#aa66cc",
+			 "#9933cc", "#800080",
+			 "#99cc00", "#669900", "#00ff99",
+			 "#ffbb33", "#ff8800", "#ff4444", "#cc0000",
+			 "#778899"]
 
 window.onload = function() {
 	var canvas = document.getElementById('canvas');
@@ -49,9 +57,64 @@ function update() {
 	var curSeconds = parseInt(curShowTimeSeconds % 60);
 
 	if (nextSeconds != curSeconds) {
+		if (parseInt(curHours / 10) != parseInt(nextHours / 10)) {
+			addBalls(MARGIN_LEFT, MARGIN_TOP, parseInt(curHours / 10));
+		}
+		if (parseInt(curHours % 10) != parseInt(nextHours % 10)) {
+			addBalls(MARGIN_LEFT + 15 * (RADIUS + 1), MARGIN_TOP, parseInt(curHours % 10));
+		}
+		if (parseInt(curMinutes / 10) != parseInt(nextMinutes / 10)) {
+			addBalls(MARGIN_LEFT + 39 * (RADIUS + 1), MARGIN_TOP, parseInt(curMinutes / 10));
+		}
+		if (parseInt(curMinutes % 10) != parseInt(nextMinutes % 10)) {
+			addBalls(MARGIN_LEFT + 54 * (RADIUS + 1), MARGIN_TOP, parseInt(curHours % 10));
+		}
+		if (parseInt(curSeconds / 10) != parseInt(nextSeconds / 10)) {
+			addBalls(MARGIN_LEFT + 78 * (RADIUS + 1), MARGIN_TOP, parseInt(curSeconds / 10));
+		}
+		if (parseInt(curSeconds % 10) != parseInt(nextSeconds % 10)) {
+			addBalls(MARGIN_LEFT + 93 * (RADIUS + 1), MARGIN_TOP, parseInt(curSeconds % 10));
+		}
+
 		curShowTimeSeconds = nextShowTimeSeconds;
 	}
+	updateBalls();
 };
+
+function updateBalls() {
+	for (var i = 0; i < balls.length; i++) {
+		balls[i].x += balls[i].vx;
+		balls[i].y += balls[i].vy;
+		balls[i].vy += balls[i].g;
+
+		if (balls[i].x >= (WINDOW_WIDTH - RADIUS)) {
+			balls[i].x = (WINDOW_WIDTH - RADIUS);
+			balls[i].vx = -balls[i].vx * 0.6;
+		}
+		if (balls[i].y >= (WINDOW_HEIGHT - RADIUS)) {
+			balls[i].y = (WINDOW_HEIGHT - RADIUS);
+			balls[i].vy = -balls[i].vy * 0.6;
+		}
+
+	}
+};
+
+function addBalls(x, y, num) {
+	for (var i = 0; i < digit[num].length; i++) {
+		for (var j = 0; j < digit[num][i].length; j++) {
+			var xy = digitxy(x, y, i, j);
+			var aBall = {
+				x: xy[0],
+				y: xy[1],
+				g: 1.5 + Math.random(),
+				vx: Math.pow(-1, Math.ceil(Math.random() * 1000)) * Math.floor(Math.random() * 4),
+				vy: -Math.floor(Math.random() * 10),
+				color: colors[Math.floor(Math.random() * colors.length)]
+			};
+			balls.push(aBall);
+		}
+	}
+}
 
 function render(ctx) {
 	ctx.clearRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -68,11 +131,19 @@ function render(ctx) {
 	renderDigit(MARGIN_LEFT + 69 * (RADIUS + 1), MARGIN_TOP, 10, ctx);
 	renderDigit(MARGIN_LEFT + 78 * (RADIUS + 1), MARGIN_TOP, parseInt(seconds / 10), ctx);
 	renderDigit(MARGIN_LEFT + 93 * (RADIUS + 1), MARGIN_TOP, parseInt(seconds % 10), ctx);
+
+	for (var i = 0; i < balls.length; i++) {
+		ctx.fillStyle = balls[i].color;
+		ctx.beginPath();
+		ctx.arc(balls[i].x, balls[i].y, RADIUS, START, END);
+		ctx.closePath();
+		ctx.fill();
+	}
 };
 
 function renderDigit(x, y, num, ctx) {
-	ctx.fillStyle = "rgb(0, 102, 153)";
-
+	//ctx.fillStyle = "rgb(0, 102, 153)";
+	ctx.fillStyle = "#236B9f";
 	for (var i = 0; i < digit[num].length; i++) {
 		for (var j = 0; j < digit[num][i].length; j++) {
 			if (digit[num][i][j] == 1) {
