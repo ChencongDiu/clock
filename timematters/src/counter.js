@@ -2,7 +2,7 @@
 * @Author: x
 * @Date:   2017-11-19 19:18:11
 * @Last Modified by:   x
-* @Last Modified time: 2017-11-19 22:31:57
+* @Last Modified time: 2017-11-19 22:40:19
 */
 var WINDOW_WIDTH  = 720;
 var WINDOW_HEIGHT = 360;
@@ -32,8 +32,10 @@ window.onload = function() {
 
 	curShowTimeSeconds = getCurShowTimeSeconds();
 	setInterval(function() {
-		render(ctx);
-		update();
+		if (!document.hidden) {
+			render(ctx);
+			update();
+		}
 	}, 50);
 };
 
