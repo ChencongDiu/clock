@@ -2,7 +2,7 @@
 * @Author: x
 * @Date:   2017-11-19 19:18:11
 * @Last Modified by:   x
-* @Last Modified time: 2017-11-20 00:17:24
+* @Last Modified time: 2017-11-20 00:21:30
 */
 var WINDOW_WIDTH  = 720;
 var WINDOW_HEIGHT = 360;
@@ -112,7 +112,8 @@ function updateBalls() {
 	for (var i = 0; i < balls.length; i++) {
 		//keep the ball
 		if ((balls[i].x + RADIUS > 0 && balls[i].x - RADIUS < WINDOW_WIDTH) && 
-			!(balls[i].vy < 0.01 && balls[i].vx == 0) && !(balls[i].y == (WINDOW_HEIGHT - RADIUS) && Math.abs(balls[i].vy) < 6)) {
+			!(balls[i].vy < 0.01 && balls[i].vx == 0) &&
+			!(balls[i].y == (WINDOW_HEIGHT - RADIUS) && Math.abs(balls[i].vy) < 6)) {
 			balls[cnt++] = balls[i];
 		}
 	}
