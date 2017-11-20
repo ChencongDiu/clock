@@ -2,7 +2,7 @@
 * @Author: x
 * @Date:   2017-11-19 19:18:11
 * @Last Modified by:   x
-* @Last Modified time: 2017-11-19 21:15:58
+* @Last Modified time: 2017-11-19 21:33:55
 */
 var WINDOW_WIDTH  = 1024;
 var WINDOW_HEIGHT = 768;
@@ -23,7 +23,10 @@ window.onload = function() {
 	canvas.height = WINDOW_HEIGHT;
 
 	curShowTimeSeconds = getCurShowTimeSeconds();
-	render(ctx);
+	setInterval(function() {
+		render(ctx);
+		update();
+	}, 50);
 };
 
 function getCurShowTimeSeconds() {
@@ -32,13 +35,30 @@ function getCurShowTimeSeconds() {
 	ret = Math.round(ret / 1000);
 
 	return ret >= 0? ret: 0;
-}
+};
+
+function update() {
+	var nextShowTimeSeconds = getCurShowTimeSeconds();
+
+	var nextHours = parseInt(nextShowTimeSeconds / 3600);
+	var nextMinutes = parseInt((nextShowTimeSeconds - nextHours * 3600) / 60);
+	var nextSeconds = parseInt(nextShowTimeSeconds % 60);
+
+	var curHours = parseInt(curShowTimeSeconds / 3600);
+	var curMinutes = parseInt((curShowTimeSeconds - curHours * 3600) / 60);
+	var curSeconds = parseInt(curShowTimeSeconds % 60);
+
+	if (nextSeconds != curSeconds) {
+		curShowTimeSeconds = nextShowTimeSeconds;
+	}
+};
 
 function render(ctx) {
+	ctx.clearRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+
 	var hours = parseInt(curShowTimeSeconds / 3600);
 	var minutes = parseInt((curShowTimeSeconds - hours * 3600) / 60);
 	var seconds = parseInt(curShowTimeSeconds % 60);
-	console.log(hours, minutes, seconds);
 
 	renderDigit(MARGIN_LEFT, MARGIN_TOP, parseInt(hours / 10), ctx);
 	renderDigit(MARGIN_LEFT + 15 * (RADIUS + 1), MARGIN_TOP, parseInt(hours % 10), ctx);
