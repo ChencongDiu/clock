@@ -1,4 +1,4 @@
-# Canvas
+# **Canvas**
 ## api
 ### draw - rectangle
 	ctx.rect(x, y, width, height);
@@ -73,7 +73,7 @@
 	ctx.transform(a, b, c, d, e, f);
 	ctx.setTransform(a, b, c, d, e, f); //reset
 *****
-## tips(**order matters!**)
+## **tips(order matters!)**
 ### to get a perfect closed shape
 	ctx.beginPath(); ...; ctx.closePath();
 ### start another draw
