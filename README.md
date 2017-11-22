@@ -72,7 +72,7 @@
 	//e: horizontal translate, f: vertical translate
 	ctx.transform(a, b, c, d, e, f);
 	ctx.setTransform(a, b, c, d, e, f); //reset
-## tips(**order matters!**)
+## tips(__order matters!__)
 ### to get a perfect closed shape
 	ctx.beginPath(); ...; ctx.closePath();
 ### start another draw
