@@ -2,7 +2,7 @@
 * @Author: x
 * @Date:   2017-11-19 19:18:11
 * @Last Modified by:   x
-* @Last Modified time: 2017-11-21 22:34:05
+* @Last Modified time: 2017-11-21 22:59:47
 */
 var WINDOW_WIDTH  = 720;
 var WINDOW_HEIGHT = 360;
@@ -48,6 +48,7 @@ window.onload = function() {
 
 function write(ctx) {
 	ctx.font = "bold 30px Arial";
+	ctx.fillStyle = "#236B9f";
 	ctx.fillText("Counter - 1 hour", MARGIN_LEFT, MARGIN_TOP / 3);
 };
 
@@ -145,7 +146,11 @@ function addBalls(x, y, num) {
 }
 
 function render(ctx) {
-	ctx.clearRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+	ctx.clearRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT); //matters!
+
+	ctx.fillStyle = "#f0f0f0";
+	ctx.fillRect(0, 0, canvas.width, canvas.height);
+	write(ctx);
 
 	var hours = parseInt(curShowTimeSeconds / 3600);
 	var minutes = parseInt((curShowTimeSeconds - hours * 3600) / 60);
@@ -167,8 +172,6 @@ function render(ctx) {
 		ctx.closePath();
 		ctx.fill();
 	}
-
-	write(ctx);
 };
 
 function renderDigit(x, y, num, ctx) {
