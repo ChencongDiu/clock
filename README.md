@@ -13,6 +13,8 @@
 ### [draw - arc III](tinyurl.com/html5quadratic)
 	ctx.moveTo(x0, y0);
 	ctx.bezierCurveTo(x1, y1, x2, y2, x3, y3);
+### clip
+	ctx.clip();
 ### text - fill(can be used with fillStyle)
 	ctx.font = "bold 40px Arial"; //see more below
 	ctx.fillText(String, x, y, (maxlen));
@@ -73,6 +75,13 @@
 	ctx.transform(a, b, c, d, e, f);
 	ctx.setTransform(a, b, c, d, e, f); //reset
 ### shadow
+	ctx.shadowColor;
+	ctx.shadowOffsetX;
+	ctx.shadowOffsetY;
+	ctx.shadowBlur;
+### global
+	globalAlpha = 1; //global transparent [0, 1]
+	globalCompositeOperation = "source-over", "destination-over", ...; //overlapping
 *****
 ## **tips(order matters!)**
 ### to get a perfect closed shape

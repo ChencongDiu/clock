@@ -2,7 +2,7 @@
 * @Author: x
 * @Date:   2017-11-19 19:18:11
 * @Last Modified by:   x
-* @Last Modified time: 2017-11-21 22:59:47
+* @Last Modified time: 2017-11-22 10:50:39
 */
 var WINDOW_WIDTH  = 720;
 var WINDOW_HEIGHT = 360;
@@ -47,7 +47,7 @@ window.onload = function() {
 };
 
 function write(ctx) {
-	ctx.font = "bold 30px Arial";
+	ctx.font = "bold 30px Comic Sans MS";
 	ctx.fillStyle = "#236B9f";
 	ctx.fillText("Counter - 1 hour", MARGIN_LEFT, MARGIN_TOP / 3);
 };
