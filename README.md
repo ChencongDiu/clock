@@ -1,4 +1,4 @@
-# **Canvas**
+# Canvas
 ## api
 ### draw - rectangle
 	ctx.rect(x, y, width, height);
