@@ -72,6 +72,7 @@
 	//e: horizontal translate, f: vertical translate
 	ctx.transform(a, b, c, d, e, f);
 	ctx.setTransform(a, b, c, d, e, f); //reset
+### shadow
 *****
 ## **tips(order matters!)**
 ### to get a perfect closed shape
