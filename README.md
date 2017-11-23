@@ -17,6 +17,12 @@
 	ctx.drawImage(image, dx, dy); //d-destination
 	ctx.drawImage(image, dx, dy, dw, dh);
 	ctx.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh); //s-source
+### imageData I
+	imageData = ctx.getImageData(x, y, w, h);
+### imageData II
+	ctx.putImageData(imageData, dx, dy, dirtyX, dirtyY, dirtyW, dirtyH);
+### imageData III
+	imageData = ctx.createImageData(w, h);
 ### clip
 	ctx.clip();
 ### text - fill(can be used with fillStyle)
