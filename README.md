@@ -13,6 +13,10 @@
 ### [draw - arc III](tinyurl.com/html5quadratic)
 	ctx.moveTo(x0, y0);
 	ctx.bezierCurveTo(x1, y1, x2, y2, x3, y3);
+### draw - image
+	ctx.drawImage(image, dx, dy); //d-destination
+	ctx.drawImage(image, dx, dy, dw, dh);
+	ctx.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh); //s-source
 ### clip
 	ctx.clip();
 ### text - fill(can be used with fillStyle)
@@ -82,6 +86,10 @@
 ### global
 	globalAlpha = 1; //global transparent [0, 1]
 	globalCompositeOperation = "source-over", "destination-over", ...; //overlapping
+### clearRect
+	ctx.clearRect(x, y, width, height);
+### isPointInPath
+	ctx.isPointInPath(x, y);
 *****
 ## **tips(order matters!)**
 ### to get a perfect closed shape
